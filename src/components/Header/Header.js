@@ -183,7 +183,7 @@ const Header = () => {
     <HeaderContainer>
       <HeaderContent>
         <Logo to="/" onClick={closeMobileMenu}>
-          Medirex
+          HealthTalentHub
         </Logo>
         
         <Nav>

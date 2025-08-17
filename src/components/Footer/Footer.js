@@ -362,33 +362,6 @@ const Footer = () => {
                 <FaLinkedin />
               </a>
               <a 
-                href="https://twitter.com" 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                title="Follow us on Twitter"
-                className="twitter"
-              >
-                <FaTwitter />
-              </a>
-              <a 
-                href="https://youtube.com" 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                title="Subscribe to our YouTube channel"
-                className="youtube"
-              >
-                <FaYoutube />
-              </a>
-              <a 
-                href="https://facebook.com" 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                title="Like us on Facebook"
-                className="facebook"
-              >
-                <FaFacebook />
-              </a>
-              <a 
                 href="https://instagram.com" 
                 target="_blank" 
                 rel="noopener noreferrer" 

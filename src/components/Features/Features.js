@@ -1,12 +1,83 @@
-import React from 'react';
-import styled from 'styled-components';
+import React, { useState, useEffect } from 'react';
+import styled, { keyframes } from 'styled-components';
 import { Link } from 'react-router-dom';
 import { theme } from '../../styles/theme';
 
+// Enhanced Animations
+const fadeInUp = keyframes`
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+`;
+
+const slideInLeft = keyframes`
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+`;
+
+const slideInRight = keyframes`
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+`;
+
+const float = keyframes`
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+`;
+
+const pulse = keyframes`
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+`;
+
+const shimmer = keyframes`
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+`;
+
+const rotate = keyframes`
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+`;
+
 const FeaturesSection = styled.section`
-  padding: ${theme.spacing['2xl']} 0;
+  padding: ${theme.spacing['4xl']} 0;
   background: ${theme.colors.backgroundSecondary};
   position: relative;
+  overflow: hidden;
   
   &::before {
     content: '';
@@ -16,11 +87,22 @@ const FeaturesSection = styled.section`
     right: 0;
     height: 100%;
     background: ${theme.colors.gradients.healthcare};
-    opacity: 0.02;
+    opacity: 0.03;
+  }
+  
+  &::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, ${theme.colors.primary}10 0%, transparent 70%);
+    animation: ${float} 8s ease-in-out infinite;
   }
   
   @media (max-width: ${theme.breakpoints.md}) {
-    padding: ${theme.spacing.xl} 0;
+    padding: ${theme.spacing['2xl']} 0;
   }
 `;
 
@@ -38,7 +120,8 @@ const Container = styled.div`
 
 const SectionHeader = styled.div`
   text-align: center;
-  margin-bottom: ${theme.spacing['2xl']};
+  margin-bottom: ${theme.spacing['3xl']};
+  animation: ${fadeInUp} 1s ease-out;
   
   h2 {
     font-size: ${theme.fontSize['4xl']};
@@ -48,6 +131,20 @@ const SectionHeader = styled.div`
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    position: relative;
+    
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background: ${theme.colors.gradients.primary};
+      border-radius: 2px;
+      animation: ${pulse} 2s ease-in-out infinite;
+    }
     
     @media (max-width: ${theme.breakpoints.md}) {
       font-size: ${theme.fontSize['3xl']};
@@ -59,6 +156,7 @@ const SectionHeader = styled.div`
     color: ${theme.colors.textSecondary};
     max-width: 600px;
     margin: 0 auto;
+    line-height: 1.6;
     
     @media (max-width: ${theme.breakpoints.md}) {
       font-size: ${theme.fontSize.lg};
@@ -82,10 +180,11 @@ const FeatureCard = styled.div`
   border-radius: ${theme.borderRadius.xl};
   padding: ${theme.spacing['2xl']};
   box-shadow: ${theme.shadows.md};
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   overflow: hidden;
   border: 1px solid ${theme.colors.gray[100]};
+  animation: ${fadeInUp} 1s ease-out;
   
   &::before {
     content: '';
@@ -93,23 +192,49 @@ const FeatureCard = styled.div`
     top: 0;
     left: 0;
     right: 0;
-    height: 3px;
+    height: 4px;
     background: ${theme.colors.gradients.primary};
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+  }
+  
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, transparent 0%, ${theme.colors.primary}05 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
   }
   
   &:hover {
-    transform: translateY(-8px);
+    transform: translateY(-12px) scale(1.02);
     box-shadow: ${theme.shadows.modern};
-    border-color: ${theme.colors.primary}20;
+    border-color: ${theme.colors.primary}30;
+    
+    &::before {
+      transform: scaleX(1);
+    }
+    
+    &::after {
+      opacity: 1;
+    }
   }
   
   &:nth-child(1) {
+    animation: ${slideInLeft} 1s ease-out;
+    
     &::before {
       background: ${theme.colors.gradients.primary};
     }
   }
   
   &:nth-child(2) {
+    animation: ${slideInRight} 1s ease-out;
+    
     &::before {
       background: ${theme.colors.gradients.secondary};
     }
@@ -117,8 +242,8 @@ const FeatureCard = styled.div`
 `;
 
 const FeatureIcon = styled.div`
-  width: 90px;
-  height: 90px;
+  width: 100px;
+  height: 100px;
   background: ${theme.colors.gradients.primary};
   border-radius: ${theme.borderRadius.xl};
   display: flex;
@@ -128,7 +253,7 @@ const FeatureIcon = styled.div`
   font-size: ${theme.fontSize['4xl']};
   color: ${theme.colors.white};
   box-shadow: ${theme.shadows.medical};
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   overflow: hidden;
   
@@ -139,16 +264,34 @@ const FeatureIcon = styled.div`
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.2) 50%, transparent 70%);
+    background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.3) 50%, transparent 70%);
     transform: translateX(-100%);
     transition: transform 0.6s ease;
   }
   
+  &::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: conic-gradient(from 0deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    animation: ${rotate} 3s linear infinite;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  
   ${FeatureCard}:hover & {
     transform: scale(1.1) rotate(5deg);
+    box-shadow: ${theme.shadows.medicalTeal};
     
     &::before {
       transform: translateX(100%);
+    }
+    
+    &::after {
+      opacity: 1;
     }
   }
   
@@ -168,6 +311,12 @@ const FeatureContent = styled.div`
     font-size: ${theme.fontSize['2xl']};
     color: ${theme.colors.textPrimary};
     margin-bottom: ${theme.spacing.md};
+    font-weight: 600;
+    transition: color 0.3s ease;
+    
+    ${FeatureCard}:hover & {
+      color: ${theme.colors.primary};
+    }
     
     @media (max-width: ${theme.breakpoints.md}) {
       font-size: ${theme.fontSize.xl};
@@ -177,7 +326,8 @@ const FeatureContent = styled.div`
   p {
     color: ${theme.colors.textSecondary};
     margin-bottom: ${theme.spacing.lg};
-    line-height: 1.6;
+    line-height: 1.7;
+    font-size: ${theme.fontSize.lg};
   }
 `;
 
@@ -190,11 +340,28 @@ const FeatureButton = styled(Link)`
   transition: all 0.3s ease;
   padding: ${theme.spacing.sm} ${theme.spacing.md};
   border-radius: ${theme.borderRadius.md};
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: ${theme.colors.gradients.primary};
+    transition: left 0.3s ease;
+    z-index: -1;
+  }
   
   &:hover {
-    color: ${theme.colors.primaryDark};
-    transform: translateX(4px);
-    background: ${theme.colors.gray[50]};
+    color: ${theme.colors.white};
+    transform: translateX(8px);
+    
+    &::before {
+      left: 0;
+    }
   }
   
   &::after {
@@ -208,35 +375,85 @@ const FeatureButton = styled(Link)`
   }
 `;
 
+const FloatingElements = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  
+  .floating-element {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: ${theme.colors.primary}20;
+    border-radius: 50%;
+    animation: ${float} 6s ease-in-out infinite;
+    
+    &:nth-child(1) {
+      top: 10%;
+      left: 10%;
+      animation-delay: 0s;
+    }
+    
+    &:nth-child(2) {
+      top: 20%;
+      right: 15%;
+      animation-delay: 2s;
+    }
+    
+    &:nth-child(3) {
+      bottom: 30%;
+      left: 5%;
+      animation-delay: 4s;
+    }
+    
+    &:nth-child(4) {
+      bottom: 20%;
+      right: 10%;
+      animation-delay: 1s;
+    }
+  }
+`;
+
 const Features = () => {
   const features = [
     {
       icon: '⚕️',
-      title: 'Patient Identification Solutions',
-      description: 'Medirex has patented, Health Canada approved, patient identification solutions for acute care facilities of all sizes. Our custom solutions include hospital wristbands, patient bracelets, labels, and carbonless forms.',
-      link: '/patient-identification'
+      title: 'Healthcare Talent Solutions',
+      description: 'HealthTalentHub provides comprehensive recruitment solutions for healthcare facilities of all sizes. Our platform connects qualified medical professionals with leading healthcare institutions worldwide.',
+      link: '/talent-solutions'
     },
     {
       icon: '📱',
-      title: 'Patient Engagement with mySPOT',
-      description: 'Your hospital wristband is the Single Point Of Truth. Activated with the mySPOT ecosystem, hospitals can access a powerful engagement data analysis tool and patients can connect with a robust personalized mobile app.',
-      link: '/myspot'
+      title: 'Professional Engagement Platform',
+      description: 'Our innovative platform serves as the Single Point Of Truth for healthcare recruitment. Hospitals can access powerful talent analytics and professionals can connect with personalized career opportunities.',
+      link: '/platform'
     }
   ];
 
   return (
     <FeaturesSection>
+      <FloatingElements>
+        <div className="floating-element"></div>
+        <div className="floating-element"></div>
+        <div className="floating-element"></div>
+        <div className="floating-element"></div>
+      </FloatingElements>
+      
       <Container>
         <SectionHeader>
-          <h2>Healthcare is our priority</h2>
+          <h2>Healthcare talent is our priority</h2>
           <p>
-            Understanding the patient journey, we look for new ways to build patient connections for hospitals
+            Understanding the healthcare recruitment journey, we look for new ways to build connections between professionals and facilities
           </p>
         </SectionHeader>
 
         <FeaturesGrid>
           {features.map((feature, index) => (
-            <FeatureCard key={index}>
+            <FeatureCard key={index} style={{ animationDelay: `${index * 0.2}s` }}>
               <FeatureIcon>{feature.icon}</FeatureIcon>
               <FeatureContent>
                 <h3>{feature.title}</h3>

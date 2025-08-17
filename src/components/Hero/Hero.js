@@ -3,15 +3,46 @@ import styled, { keyframes } from 'styled-components';
 import { Link } from 'react-router-dom';
 import { theme } from '../../styles/theme';
 
-// Animations
+// Enhanced Modern Animations
 const fadeInUp = keyframes`
   from {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(60px);
   }
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+`;
+
+const slideInLeft = keyframes`
+  from {
+    opacity: 0;
+    transform: translateX(-80px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+`;
+
+const slideInRight = keyframes`
+  from {
+    opacity: 0;
+    transform: translateX(80px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+`;
+
+const float = keyframes`
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
   }
 `;
 
@@ -24,21 +55,38 @@ const pulse = keyframes`
   }
 `;
 
-const float = keyframes`
+const shimmer = keyframes`
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+`;
+
+const rotate = keyframes`
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+`;
+
+const gradientShift = keyframes`
   0%, 100% {
-    transform: translateY(0px);
+    background-position: 0% 50%;
   }
   50% {
-    transform: translateY(-10px);
+    background-position: 100% 50%;
   }
 `;
 
 const HeroSection = styled.section`
-  background: linear-gradient(rgba(59, 130, 246, 0.8), rgba(6, 182, 212, 0.8)), 
-              url('https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2000&q=80');
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
+  background: linear-gradient(135deg, 
+    rgba(59, 130, 246, 0.9) 0%, 
+    rgba(6, 182, 212, 0.9) 50%, 
+    rgba(99, 102, 241, 0.9) 100%);
   color: ${theme.colors.white};
   padding: ${theme.spacing['4xl']} 0;
   margin-top: 80px;
@@ -54,9 +102,9 @@ const HeroSection = styled.section`
     top: 0;
     left: 0;
     right: 0;
-    height: 100%;
-    background: ${theme.colors.gradients.healthcare};
-    opacity: 0.1;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+    opacity: 0.3;
   }
   
   &::after {
@@ -66,13 +114,12 @@ const HeroSection = styled.section`
     right: -50%;
     width: 100%;
     height: 100%;
-    background: radial-gradient(circle, ${theme.colors.primary}20 0%, transparent 70%);
-    animation: ${float} 6s ease-in-out infinite;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+    animation: ${float} 8s ease-in-out infinite;
   }
   
   @media (max-width: ${theme.breakpoints.md}) {
     padding: ${theme.spacing['2xl']} 0;
-    background-attachment: scroll;
   }
 `;
 
@@ -89,7 +136,7 @@ const VideoBackground = styled.div`
     width: 100%;
     height: 100%;
     object-fit: cover;
-    opacity: 0.3;
+    opacity: 0.2;
   }
   
   &::after {
@@ -99,7 +146,10 @@ const VideoBackground = styled.div`
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(135deg, rgba(59, 130, 246, 0.8) 0%, rgba(6, 182, 212, 0.8) 100%);
+    background: linear-gradient(135deg, 
+      rgba(59, 130, 246, 0.8) 0%, 
+      rgba(6, 182, 212, 0.8) 50%, 
+      rgba(99, 102, 241, 0.8) 100%);
   }
 `;
 
@@ -129,22 +179,25 @@ const HeroContent = styled.div`
 `;
 
 const HeroText = styled.div`
-  animation: ${fadeInUp} 1s ease-out;
+  animation: ${slideInLeft} 1.2s ease-out;
   
   h1 {
     font-size: ${theme.fontSize['6xl']};
-    font-weight: 700;
+    font-weight: 800;
     margin-bottom: ${theme.spacing.lg};
     line-height: 1.1;
     color: ${theme.colors.white};
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    letter-spacing: -0.02em;
     
     .highlight {
-      background: ${theme.colors.gradients.vibrant};
+      background: linear-gradient(135deg, #ffffff 0%, #f0f9ff 50%, #e0f2fe 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
       text-shadow: none;
+      position: relative;
+      display: inline-block;
     }
     
     @media (max-width: ${theme.breakpoints.md}) {
@@ -156,8 +209,9 @@ const HeroText = styled.div`
     font-size: ${theme.fontSize.xl};
     margin-bottom: ${theme.spacing.xl};
     color: ${theme.colors.gray[100]};
-    line-height: 1.6;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    line-height: 1.7;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    font-weight: 400;
     
     @media (max-width: ${theme.breakpoints.md}) {
       font-size: ${theme.fontSize.lg};
@@ -180,117 +234,82 @@ const HeroButton = styled(Link)`
   align-items: center;
   justify-content: center;
   padding: ${theme.spacing.md} ${theme.spacing.xl};
-  border-radius: ${theme.borderRadius.lg};
+  border-radius: ${theme.borderRadius.xl};
   font-weight: 600;
   text-decoration: none;
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   font-size: ${theme.fontSize.lg};
   gap: ${theme.spacing.sm};
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.6s ease;
+  }
+  
+  &:hover::before {
+    left: 100%;
+  }
   
   &.primary {
-    background: ${theme.colors.white};
+    background: rgba(255, 255, 255, 0.95);
     color: ${theme.colors.primary};
-    box-shadow: ${theme.shadows.lg};
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     
     &:hover {
-      background: ${theme.colors.gray[50]};
-      transform: translateY(-3px);
-      box-shadow: ${theme.shadows.xl};
+      background: rgba(255, 255, 255, 1);
+      transform: translateY(-6px) scale(1.02);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
     }
   }
   
   &.secondary {
-    background: transparent;
+    background: rgba(255, 255, 255, 0.1);
     color: ${theme.colors.white};
-    border: 2px solid ${theme.colors.white};
-    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.3);
     
     &:hover {
-      background: ${theme.colors.white};
-      color: ${theme.colors.primary};
-      transform: translateY(-3px);
-      box-shadow: ${theme.shadows.lg};
+      background: rgba(255, 255, 255, 0.2);
+      border-color: rgba(255, 255, 255, 0.5);
+      transform: translateY(-6px) scale(1.02);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
     }
   }
 `;
 
 const HeroImage = styled.div`
   position: relative;
-  animation: ${fadeInUp} 1s ease-out 0.3s both;
-  
-  .medical-icons {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    z-index: 2;
-    
-    .icon {
-      position: absolute;
-      width: 60px;
-      height: 60px;
-      background: ${theme.colors.white};
-      border-radius: ${theme.borderRadius.full};
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.5rem;
-      box-shadow: ${theme.shadows.lg};
-      animation: ${pulse} 2s ease-in-out infinite;
-      
-      &:nth-child(1) {
-        top: 10%;
-        left: 10%;
-        background: ${theme.colors.gradients.primary};
-        color: ${theme.colors.white};
-        animation-delay: 0s;
-      }
-      
-      &:nth-child(2) {
-        top: 20%;
-        right: 15%;
-        background: ${theme.colors.gradients.secondary};
-        color: ${theme.colors.white};
-        animation-delay: 0.5s;
-      }
-      
-      &:nth-child(3) {
-        bottom: 30%;
-        left: 5%;
-        background: ${theme.colors.gradients.indigo};
-        color: ${theme.colors.white};
-        animation-delay: 1s;
-      }
-      
-      &:nth-child(4) {
-        bottom: 20%;
-        right: 10%;
-        background: ${theme.colors.gradients.orange};
-        color: ${theme.colors.white};
-        animation-delay: 1.5s;
-      }
-    }
-  }
+  animation: ${slideInRight} 1.2s ease-out 0.3s both;
   
   .main-image {
     width: 100%;
     height: auto;
-    border-radius: ${theme.borderRadius.xl};
-    box-shadow: ${theme.shadows.xl};
+    border-radius: ${theme.borderRadius['2xl']};
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
     position: relative;
     z-index: 1;
-    border: 3px solid ${theme.colors.white};
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    transition: all 0.4s ease;
+    backdrop-filter: blur(10px);
+    
+    &:hover {
+      transform: scale(1.03);
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.3);
+      border-color: rgba(255, 255, 255, 0.5);
+    }
   }
   
   @media (max-width: ${theme.breakpoints.lg}) {
     order: -1;
-    
-    .medical-icons .icon {
-      width: 50px;
-      height: 50px;
-      font-size: 1.2rem;
-    }
   }
 `;
 
@@ -311,12 +330,13 @@ const StatItem = styled.div`
   padding: ${theme.spacing.xl};
   background: rgba(255, 255, 255, 0.95);
   border-radius: ${theme.borderRadius.xl};
-  box-shadow: ${theme.shadows.lg};
-  transition: all 0.3s ease;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(10px);
+  animation: ${fadeInUp} 1s ease-out;
   
   &::before {
     content: '';
@@ -324,64 +344,71 @@ const StatItem = styled.div`
     top: 0;
     left: 0;
     right: 0;
-    height: 3px;
-    background: ${theme.colors.gradients.primary};
+    height: 4px;
+    background: linear-gradient(90deg, #3b82f6, #06b6d4, #6366f1);
+    background-size: 200% 100%;
+    animation: ${gradientShift} 3s ease-in-out infinite;
   }
   
   &:hover {
-    transform: translateY(-8px);
-    box-shadow: ${theme.shadows.modern};
+    transform: translateY(-12px) scale(1.02);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
     background: rgba(255, 255, 255, 1);
   }
   
-  &:nth-child(1)::before {
-    background: ${theme.colors.gradients.primary};
+  &:nth-child(1) {
+    animation-delay: 0.1s;
   }
   
-  &:nth-child(2)::before {
-    background: ${theme.colors.gradients.secondary};
+  &:nth-child(2) {
+    animation-delay: 0.2s;
   }
   
-  &:nth-child(3)::before {
-    background: ${theme.colors.gradients.indigo};
+  &:nth-child(3) {
+    animation-delay: 0.3s;
   }
   
   .stat-icon {
-    width: 70px;
-    height: 70px;
+    width: 80px;
+    height: 80px;
     margin: 0 auto ${theme.spacing.md};
-    background: ${theme.colors.gradients.primary};
+    background: linear-gradient(135deg, #3b82f6, #06b6d4);
     border-radius: ${theme.borderRadius.xl};
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.8rem;
+    font-size: 2rem;
     color: ${theme.colors.white};
-    box-shadow: ${theme.shadows.medical};
+    box-shadow: 0 8px 32px rgba(59, 130, 246, 0.3);
     transition: all 0.3s ease;
   }
   
   &:hover .stat-icon {
     transform: scale(1.1) rotate(5deg);
+    box-shadow: 0 16px 48px rgba(59, 130, 246, 0.4);
   }
   
   &:nth-child(1) .stat-icon {
-    background: ${theme.colors.gradients.primary};
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
   }
   
   &:nth-child(2) .stat-icon {
-    background: ${theme.colors.gradients.secondary};
+    background: linear-gradient(135deg, #06b6d4, #0891b2);
   }
   
   &:nth-child(3) .stat-icon {
-    background: ${theme.colors.gradients.indigo};
+    background: linear-gradient(135deg, #6366f1, #4f46e5);
   }
   
   h3 {
     font-size: ${theme.fontSize['4xl']};
-    font-weight: 700;
+    font-weight: 800;
     margin-bottom: ${theme.spacing.sm};
     color: ${theme.colors.textPrimary};
+    background: linear-gradient(135deg, #3b82f6, #06b6d4);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
     
     @media (max-width: ${theme.breakpoints.md}) {
       font-size: ${theme.fontSize['3xl']};
@@ -457,12 +484,6 @@ const Hero = () => {
           </HeroText>
           
           <HeroImage>
-            <div className="medical-icons">
-              <div className="icon">⚕️</div>
-              <div className="icon">💊</div>
-              <div className="icon">🩺</div>
-              <div className="icon">📊</div>
-            </div>
             <img 
               className="main-image"
               src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" 
