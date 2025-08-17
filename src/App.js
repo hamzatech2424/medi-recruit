@@ -8,27 +8,11 @@ import Hero from './components/Hero/Hero';
 import Features from './components/Features/Features';
 import Reviews from './components/Reviews/Reviews';
 import Footer from './components/Footer/Footer';
-
-// Placeholder components for other pages
-const AboutPage = () => (
-  <div style={{ paddingTop: '80px', minHeight: '60vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-    <h1>About Us Page</h1>
-  </div>
-);
-
-const ContactPage = () => (
-  <div style={{ paddingTop: '80px', minHeight: '60vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-    <h1>Contact Page</h1>
-  </div>
-);
-
-const HomePage = () => (
-  <>
-    <Hero />
-    <Features />
-    <Reviews />
-  </>
-);
+import Contact from './components/Contact/Contact';
+import About from './components/About/About';
+import ResumeUpload from './components/ResumeUpload/ResumeUpload';
+import ChatBot from './components/ChatBot/ChatBot';
+import './App.css';
 
 function App() {
   return (
@@ -39,12 +23,21 @@ function App() {
           <Header />
           <main>
             <Routes>
-              <Route path="/" element={<HomePage />} />
-              <Route path="/about" element={<AboutPage />} />
-              <Route path="/contact" element={<ContactPage />} />
+              <Route path="/" element={
+                <>
+                  <Hero />
+                  <Features />
+                  <Reviews />
+                  <ResumeUpload />
+                </>
+              } />
+              <Route path="/about" element={<About />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/careers" element={<ResumeUpload />} />
             </Routes>
           </main>
           <Footer />
+          <ChatBot />
         </div>
       </Router>
     </ThemeProvider>

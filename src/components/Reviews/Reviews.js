@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { theme } from '../../styles/theme';
 
-// Animations
+// Smoother Animations
 const fadeInUp = keyframes`
   from {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(40px);
   }
   to {
     opacity: 1;
@@ -17,7 +17,7 @@ const fadeInUp = keyframes`
 const slideIn = keyframes`
   from {
     opacity: 0;
-    transform: translateX(50px);
+    transform: translateX(40px);
   }
   to {
     opacity: 1;
@@ -30,7 +30,7 @@ const pulse = keyframes`
     transform: scale(1);
   }
   50% {
-    transform: scale(1.05);
+    transform: scale(1.02);
   }
 `;
 
@@ -70,7 +70,7 @@ const Container = styled.div`
 const SectionHeader = styled.div`
   text-align: center;
   margin-bottom: ${theme.spacing['3xl']};
-  animation: ${fadeInUp} 1s ease-out;
+  animation: ${fadeInUp} 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   margin-top: -60px;
   
   h2 {
@@ -120,12 +120,13 @@ const StatCard = styled.div`
   background: ${theme.colors.white};
   border-radius: ${theme.borderRadius.xl};
   box-shadow: ${theme.shadows.md};
-  transition: all 0.3s ease;
+  transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   border: 1px solid ${theme.colors.gray[100]};
-  animation: ${fadeInUp} 1s ease-out;
+  animation: ${fadeInUp} 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   
   &:hover {
-    transform: translateY(-5px);
+    transform: translateY(-6px);
+    transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     box-shadow: ${theme.shadows.lg};
   }
   
@@ -145,7 +146,7 @@ const StatCard = styled.div`
   .stat-icon {
     font-size: 2rem;
     margin-bottom: ${theme.spacing.md};
-    animation: ${pulse} 2s ease-in-out infinite;
+    animation: ${pulse} 3s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
   }
 `;
 
@@ -168,11 +169,11 @@ const ReviewCard = styled.div`
   border-radius: ${theme.borderRadius.xl};
   padding: ${theme.spacing.xl};
   box-shadow: ${theme.shadows.md};
-  transition: all 0.3s ease;
+  transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   border: 1px solid ${theme.colors.gray[100]};
   position: relative;
   overflow: hidden;
-  animation: ${slideIn} 1s ease-out;
+  animation: ${slideIn} 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   
   &::before {
     content: '"';
@@ -187,6 +188,7 @@ const ReviewCard = styled.div`
   
   &:hover {
     transform: translateY(-8px);
+    transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     box-shadow: ${theme.shadows.modern};
     border-color: ${theme.colors.primary}20;
   }
@@ -263,10 +265,11 @@ const TrustBadges = styled.div`
     border-radius: ${theme.borderRadius.lg};
     box-shadow: ${theme.shadows.sm};
     border: 1px solid ${theme.colors.gray[100]};
-    transition: all 0.3s ease;
+    transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     
     &:hover {
-      transform: translateY(-2px);
+      transform: translateY(-3px);
+      transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
       box-shadow: ${theme.shadows.md};
     }
     
@@ -291,7 +294,7 @@ const TrustBadges = styled.div`
 
 const Reviews = () => {
   const stats = [
-    { number: '98%', label: 'Customer Satisfaction', icon: '⭐' },
+    { number: '98%', label: 'Client Satisfaction', icon: '⭐' },
     { number: '4.9', label: 'Average Rating', icon: '🏆' },
     { number: '500+', label: 'Healthcare Partners', icon: '🏥' },
     { number: '24/7', label: 'Support Available', icon: '🛡️' }
@@ -299,21 +302,21 @@ const Reviews = () => {
 
   const reviews = [
     {
-      content: "Medirex's patient identification solutions have revolutionized our hospital's workflow. The accuracy and efficiency improvements are remarkable.",
+      content: "HealthTalentHub's recruitment solutions have revolutionized our hospital's hiring process. The quality of candidates and efficiency improvements are remarkable.",
       name: "Dr. Sarah Johnson",
       title: "Chief Medical Officer",
       rating: 5,
       avatar: "SJ"
     },
     {
-      content: "The mySPOT platform has significantly enhanced our patient engagement. Our patients love the personalized experience and easy access to their information.",
+      content: "The platform has significantly enhanced our talent acquisition. Our hiring managers love the streamlined process and access to qualified healthcare professionals.",
       name: "Michael Chen",
-      title: "IT Director",
+      title: "HR Director",
       rating: 5,
       avatar: "MC"
     },
     {
-      content: "Outstanding reliability and support. Medirex has been our trusted partner for over 10 years, and they continue to exceed our expectations.",
+      content: "Outstanding reliability and support. HealthTalentHub has been our trusted recruitment partner for over 5 years, and they continue to exceed our expectations.",
       name: "Dr. Emily Rodriguez",
       title: "Hospital Administrator",
       rating: 5,
@@ -322,10 +325,10 @@ const Reviews = () => {
   ];
 
   const trustBadges = [
-    { icon: '🏆', text: 'ISO 13485 Certified' },
+    { icon: '🏆', text: 'ISO Certified' },
     { icon: '🛡️', text: 'HIPAA Compliant' },
-    { icon: '⭐', text: '50+ Years Experience' },
-    { icon: '🏥', text: 'Health Canada Approved' }
+    { icon: '⭐', text: '10+ Years Experience' },
+    { icon: '🏥', text: 'Healthcare Focused' }
   ];
 
   return (
@@ -334,7 +337,7 @@ const Reviews = () => {
         <SectionHeader>
           <h2>Trusted by Healthcare Professionals</h2>
           <p>
-            Join thousands of healthcare facilities worldwide who trust Medirex for their patient identification needs
+            Join thousands of healthcare facilities worldwide who trust HealthTalentHub for their recruitment needs
           </p>
         </SectionHeader>
 

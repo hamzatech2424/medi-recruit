@@ -3,11 +3,11 @@ import styled, { keyframes } from 'styled-components';
 import { Link } from 'react-router-dom';
 import { theme } from '../../styles/theme';
 
-// Enhanced Modern Animations
+// Smoother Animations
 const fadeInUp = keyframes`
   from {
     opacity: 0;
-    transform: translateY(60px);
+    transform: translateY(40px);
   }
   to {
     opacity: 1;
@@ -18,7 +18,7 @@ const fadeInUp = keyframes`
 const slideInLeft = keyframes`
   from {
     opacity: 0;
-    transform: translateX(-80px);
+    transform: translateX(-60px);
   }
   to {
     opacity: 1;
@@ -29,7 +29,7 @@ const slideInLeft = keyframes`
 const slideInRight = keyframes`
   from {
     opacity: 0;
-    transform: translateX(80px);
+    transform: translateX(60px);
   }
   to {
     opacity: 1;
@@ -42,7 +42,7 @@ const float = keyframes`
     transform: translateY(0px);
   }
   50% {
-    transform: translateY(-20px);
+    transform: translateY(-12px);
   }
 `;
 
@@ -51,7 +51,7 @@ const pulse = keyframes`
     transform: scale(1);
   }
   50% {
-    transform: scale(1.05);
+    transform: scale(1.03);
   }
 `;
 
@@ -179,7 +179,7 @@ const HeroContent = styled.div`
 `;
 
 const HeroText = styled.div`
-  animation: ${slideInLeft} 1.2s ease-out;
+  animation: ${slideInLeft} 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   
   h1 {
     font-size: ${theme.fontSize['6xl']};
@@ -237,7 +237,7 @@ const HeroButton = styled(Link)`
   border-radius: ${theme.borderRadius.xl};
   font-weight: 600;
   text-decoration: none;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   font-size: ${theme.fontSize.lg};
   gap: ${theme.spacing.sm};
   position: relative;
@@ -267,7 +267,7 @@ const HeroButton = styled(Link)`
     
     &:hover {
       background: rgba(255, 255, 255, 1);
-      transform: translateY(-6px) scale(1.02);
+      transform: translateY(-4px) scale(1.02);
       box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
     }
   }
@@ -280,7 +280,7 @@ const HeroButton = styled(Link)`
     &:hover {
       background: rgba(255, 255, 255, 0.2);
       border-color: rgba(255, 255, 255, 0.5);
-      transform: translateY(-6px) scale(1.02);
+      transform: translateY(-4px) scale(1.02);
       box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
     }
   }
@@ -288,7 +288,7 @@ const HeroButton = styled(Link)`
 
 const HeroImage = styled.div`
   position: relative;
-  animation: ${slideInRight} 1.2s ease-out 0.3s both;
+  animation: ${slideInRight} 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s both;
   
   .main-image {
     width: 100%;
@@ -331,12 +331,12 @@ const StatItem = styled.div`
   background: rgba(255, 255, 255, 0.95);
   border-radius: ${theme.borderRadius.xl};
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   position: relative;
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(10px);
-  animation: ${fadeInUp} 1s ease-out;
+  animation: ${fadeInUp} 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   
   &::before {
     content: '';
@@ -351,8 +351,8 @@ const StatItem = styled.div`
   }
   
   &:hover {
-    transform: translateY(-12px) scale(1.02);
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+    transform: translateY(-8px);
+    transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     background: rgba(255, 255, 255, 1);
   }
   
@@ -380,12 +380,11 @@ const StatItem = styled.div`
     font-size: 2rem;
     color: ${theme.colors.white};
     box-shadow: 0 8px 32px rgba(59, 130, 246, 0.3);
-    transition: all 0.3s ease;
+    transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   }
   
   &:hover .stat-icon {
-    transform: scale(1.1) rotate(5deg);
-    box-shadow: 0 16px 48px rgba(59, 130, 246, 0.4);
+    transform: scale(1.08) rotate(3deg);
   }
   
   &:nth-child(1) .stat-icon {
@@ -464,17 +463,17 @@ const Hero = () => {
         <HeroContent>
           <HeroText>
             <h1>
-              Leading <span className="highlight">Patient Identification</span> Solutions for Healthcare
+              Leading <span className="highlight">Healthcare Talent</span> Solutions
             </h1>
             <p>
-              Trusted by healthcare facilities worldwide for over 50 years. We provide innovative 
-              patient identification technology that ensures safety, accuracy, and efficiency in 
-              medical care delivery.
+              Connecting healthcare professionals with leading medical facilities worldwide. 
+              HealthTalentHub provides innovative recruitment solutions that ensure quality, 
+              safety, and efficiency in healthcare staffing.
             </p>
             <HeroButtons>
               <HeroButton to="/products" className="primary">
                 <span>🏥</span>
-                Explore Solutions
+                Find Opportunities
               </HeroButton>
               <HeroButton to="/about" className="secondary">
                 <span>📋</span>
@@ -486,8 +485,8 @@ const Hero = () => {
           <HeroImage>
             <img 
               className="main-image"
-              src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" 
-              alt="Healthcare professional with patient"
+              src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" 
+              alt="Healthcare professionals in meeting discussing recruitment"
             />
           </HeroImage>
         </HeroContent>
@@ -496,16 +495,16 @@ const Hero = () => {
           <StatItem>
             <div className="stat-icon">⚕️</div>
             <h3><AnimatedCounter end={50} suffix="+" /></h3>
-            <p>Years of Medical Excellence</p>
+            <p>Years of Healthcare Excellence</p>
           </StatItem>
           <StatItem>
             <div className="stat-icon">👥</div>
-            <h3><AnimatedCounter end={10} suffix="M+" /></h3>
-            <p>Patients Connected Annually</p>
+            <h3><AnimatedCounter end={10} suffix="K+" /></h3>
+            <p>Healthcare Professionals Placed</p>
           </StatItem>
           <StatItem>
             <div className="stat-icon">🏢</div>
-            <h3><AnimatedCounter end={100} suffix="+" /></h3>
+            <h3><AnimatedCounter end={500} suffix="+" /></h3>
             <p>Healthcare Facilities Served</p>
           </StatItem>
         </StatsContainer>

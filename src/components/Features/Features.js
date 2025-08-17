@@ -3,11 +3,11 @@ import styled, { keyframes } from 'styled-components';
 import { Link } from 'react-router-dom';
 import { theme } from '../../styles/theme';
 
-// Enhanced Animations
+// Smoother Animations
 const fadeInUp = keyframes`
   from {
     opacity: 0;
-    transform: translateY(50px);
+    transform: translateY(40px);
   }
   to {
     opacity: 1;
@@ -18,7 +18,7 @@ const fadeInUp = keyframes`
 const slideInLeft = keyframes`
   from {
     opacity: 0;
-    transform: translateX(-50px);
+    transform: translateX(-60px);
   }
   to {
     opacity: 1;
@@ -29,7 +29,7 @@ const slideInLeft = keyframes`
 const slideInRight = keyframes`
   from {
     opacity: 0;
-    transform: translateX(50px);
+    transform: translateX(60px);
   }
   to {
     opacity: 1;
@@ -42,7 +42,7 @@ const float = keyframes`
     transform: translateY(0px);
   }
   50% {
-    transform: translateY(-10px);
+    transform: translateY(-8px);
   }
 `;
 
@@ -51,7 +51,7 @@ const pulse = keyframes`
     transform: scale(1);
   }
   50% {
-    transform: scale(1.05);
+    transform: scale(1.02);
   }
 `;
 
@@ -70,6 +70,15 @@ const rotate = keyframes`
   }
   to {
     transform: rotate(360deg);
+  }
+`;
+
+const gradientShift = keyframes`
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
   }
 `;
 
@@ -121,7 +130,7 @@ const Container = styled.div`
 const SectionHeader = styled.div`
   text-align: center;
   margin-bottom: ${theme.spacing['3xl']};
-  animation: ${fadeInUp} 1s ease-out;
+  animation: ${fadeInUp} 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   
   h2 {
     font-size: ${theme.fontSize['4xl']};
@@ -180,11 +189,11 @@ const FeatureCard = styled.div`
   border-radius: ${theme.borderRadius.xl};
   padding: ${theme.spacing['2xl']};
   box-shadow: ${theme.shadows.md};
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  animation: ${fadeInUp} 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   position: relative;
   overflow: hidden;
   border: 1px solid ${theme.colors.gray[100]};
-  animation: ${fadeInUp} 1s ease-out;
   
   &::before {
     content: '';
@@ -211,7 +220,7 @@ const FeatureCard = styled.div`
   }
   
   &:hover {
-    transform: translateY(-12px) scale(1.02);
+    transform: translateY(-8px) scale(1.02);
     box-shadow: ${theme.shadows.modern};
     border-color: ${theme.colors.primary}30;
     
@@ -225,7 +234,7 @@ const FeatureCard = styled.div`
   }
   
   &:nth-child(1) {
-    animation: ${slideInLeft} 1s ease-out;
+    animation: ${slideInLeft} 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     
     &::before {
       background: ${theme.colors.gradients.primary};
@@ -233,7 +242,7 @@ const FeatureCard = styled.div`
   }
   
   &:nth-child(2) {
-    animation: ${slideInRight} 1s ease-out;
+    animation: ${slideInRight} 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     
     &::before {
       background: ${theme.colors.gradients.secondary};
@@ -253,7 +262,7 @@ const FeatureIcon = styled.div`
   font-size: ${theme.fontSize['4xl']};
   color: ${theme.colors.white};
   box-shadow: ${theme.shadows.medical};
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   position: relative;
   overflow: hidden;
   
@@ -283,7 +292,7 @@ const FeatureIcon = styled.div`
   }
   
   ${FeatureCard}:hover & {
-    transform: scale(1.1) rotate(5deg);
+    transform: scale(1.08) rotate(3deg);
     box-shadow: ${theme.shadows.medicalTeal};
     
     &::before {
@@ -337,7 +346,7 @@ const FeatureButton = styled(Link)`
   color: ${theme.colors.primary};
   font-weight: 600;
   text-decoration: none;
-  transition: all 0.3s ease;
+  transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   padding: ${theme.spacing.sm} ${theme.spacing.md};
   border-radius: ${theme.borderRadius.md};
   position: relative;
@@ -357,7 +366,7 @@ const FeatureButton = styled(Link)`
   
   &:hover {
     color: ${theme.colors.white};
-    transform: translateX(8px);
+    transform: translateX(6px);
     
     &::before {
       left: 0;
