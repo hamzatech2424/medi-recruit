@@ -1,6 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { 
+  FaLinkedin, 
+  FaTwitter, 
+  FaYoutube, 
+  FaFacebook, 
+  FaInstagram,
+  FaMapMarkerAlt,
+  FaPhone,
+  FaEnvelope,
+  FaClock
+} from 'react-icons/fa';
 import { theme } from '../../styles/theme';
 
 const FooterContainer = styled.footer`
@@ -128,7 +139,7 @@ const ContactInfo = styled.div`
   
   .contact-item {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: ${theme.spacing.sm};
     color: ${theme.colors.gray[300]};
     font-size: ${theme.fontSize.sm};
@@ -146,6 +157,8 @@ const ContactInfo = styled.div`
       width: 16px;
       height: 16px;
       color: ${theme.colors.primaryLight};
+      flex-shrink: 0;
+      margin-top: 2px;
     }
   }
 `;
@@ -159,20 +172,73 @@ const SocialLinks = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 40px;
-    height: 40px;
+    width: 44px;
+    height: 44px;
     background: ${theme.colors.gradients.primary};
     border-radius: ${theme.borderRadius.full};
     color: ${theme.colors.white};
     text-decoration: none;
     transition: all 0.3s ease;
     box-shadow: ${theme.shadows.medical};
+    position: relative;
+    overflow: hidden;
+    
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: ${theme.colors.gradients.secondary};
+      transition: left 0.3s ease;
+      z-index: 1;
+    }
+    
+    svg {
+      position: relative;
+      z-index: 2;
+      width: 20px;
+      height: 20px;
+      transition: transform 0.3s ease;
+    }
     
     &:hover {
-      background: ${theme.colors.gradients.secondary};
       transform: translateY(-3px) scale(1.1);
       box-shadow: ${theme.shadows.medicalTeal};
+      
+      &::before {
+        left: 0;
+      }
+      
+      svg {
+        transform: rotate(360deg);
+      }
     }
+    
+    &:active {
+      transform: translateY(-1px) scale(1.05);
+    }
+  }
+  
+  .linkedin:hover {
+    background: #0077b5;
+  }
+  
+  .twitter:hover {
+    background: #1DA1F2;
+  }
+  
+  .youtube:hover {
+    background: #FF0000;
+  }
+  
+  .facebook:hover {
+    background: #4267B2;
+  }
+  
+  .instagram:hover {
+    background: linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%);
   }
 `;
 
@@ -269,31 +335,67 @@ const Footer = () => {
             </p>
             <ContactInfo>
               <div className="contact-item">
-                <span className="icon">📍</span>
+                <FaMapMarkerAlt className="icon" />
                 <span>18 King Street East, Suite 1400<br />Toronto, ON, Canada M5C 1C4</span>
               </div>
               <div className="contact-item">
-                <span className="icon">📞</span>
+                <FaPhone className="icon" />
                 <span>416.363.9313<br />1.800.387.9848</span>
               </div>
               <div className="contact-item">
-                <span className="icon">✉️</span>
+                <FaEnvelope className="icon" />
                 <span>info@medirex.com</span>
               </div>
               <div className="contact-item">
-                <span className="icon">🕒</span>
+                <FaClock className="icon" />
                 <span>24/7 Support Available</span>
               </div>
             </ContactInfo>
             <SocialLinks>
-              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" title="LinkedIn">
-                <span>LinkedIn</span>
+              <a 
+                href="https://linkedin.com" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                title="Follow us on LinkedIn"
+                className="linkedin"
+              >
+                <FaLinkedin />
               </a>
-              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" title="Twitter">
-                <span>Twitter</span>
+              <a 
+                href="https://twitter.com" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                title="Follow us on Twitter"
+                className="twitter"
+              >
+                <FaTwitter />
               </a>
-              <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" title="YouTube">
-                <span>YouTube</span>
+              <a 
+                href="https://youtube.com" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                title="Subscribe to our YouTube channel"
+                className="youtube"
+              >
+                <FaYoutube />
+              </a>
+              <a 
+                href="https://facebook.com" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                title="Like us on Facebook"
+                className="facebook"
+              >
+                <FaFacebook />
+              </a>
+              <a 
+                href="https://instagram.com" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                title="Follow us on Instagram"
+                className="instagram"
+              >
+                <FaInstagram />
               </a>
             </SocialLinks>
           </CompanyInfo>
